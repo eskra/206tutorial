@@ -20,16 +20,22 @@ void addWord(char inputword[]){
 	currentword = (struct WORD_node *)malloc(sizeof(struct WORD_node));
 	
 	if(currentword == 0){
-		printf("MALLOC FAILURE.\n");
+		printf("Malloc failed. Poor malloc...\n");
 	}
+	
+	//copy input word into the word part of the struct
+	//is the word word starting to sound weird to you
 	strcpy(currentword->word, inputword);
 	currentword->next = 0;
 	
 	if(myStringStorage == 0){
+		//if the list is empty, make the word given be the first word
 		myStringStorage = currentword;
 		return;
 	}
 	for(last = myStringStorage; last->next !=0; last = last->next){}
+	//go to the last word in the list
+	//add the new word after it
 	last->next = currentword;
 }
 
@@ -50,6 +56,7 @@ void printList(void){
 }
 
 int containsASpace(char userinput[]){
+	//this function finds the location of the first space
 	int j;
         for(j = 0; j < strlen(userinput); j++){
         	if(userinput[j] == ' '){
@@ -93,6 +100,8 @@ int main(){
 		if(i != 0){
 			char temparray[100];
 			strncpy(temparray, userinput, i);
+			//copy the word up until where the space is located
+			//set the next character as \0
 			temparray[i] = '\0';
 			addWord(temparray);
 		}
